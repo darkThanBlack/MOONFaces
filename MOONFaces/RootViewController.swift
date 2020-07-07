@@ -23,7 +23,8 @@ class RootViewController: UIViewController {
         var modal: Modal = .push
     }
     private let cells: [CellInfo] = [.init(name: "VideoScanViewController"),
-                                     .init(name: "AlbumViewController")
+                                     .init(name: "AlbumViewController"),
+                                     .init(name: "AVCamViewController")
                                      ]
     
     //MARK: Life Cycle
