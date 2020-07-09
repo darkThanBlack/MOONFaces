@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A223DC0324B5D0D7009A17E9 /* PhotoCaptures.swift in Sources */ = {isa = PBXBuildFile; fileRef = A223DC0224B5D0D7009A17E9 /* PhotoCaptures.swift */; };
 		A26700F924B45A7000454AA0 /* AVCamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26700F824B45A7000454AA0 /* AVCamViewController.swift */; };
 		A26700FB24B45D3600454AA0 /* AVCamPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26700FA24B45D3600454AA0 /* AVCamPreviewView.swift */; };
 		A2B3508224AEDB7D0005D5C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3508124AEDB7D0005D5C3 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A223DC0224B5D0D7009A17E9 /* PhotoCaptures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCaptures.swift; sourceTree = "<group>"; };
 		A26700F824B45A7000454AA0 /* AVCamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCamViewController.swift; sourceTree = "<group>"; };
 		A26700FA24B45D3600454AA0 /* AVCamPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVCamPreviewView.swift; sourceTree = "<group>"; };
 		A2B3507E24AEDB7D0005D5C3 /* MOONFaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MOONFaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 				A2B3599D24AF189F0005D5C3 /* VideoScanViewController.swift */,
 				A2B3629A24AF25AD0005D5C3 /* AlbumViewController.swift */,
 				A26700F824B45A7000454AA0 /* AVCamViewController.swift */,
+				A223DC0224B5D0D7009A17E9 /* PhotoCaptures.swift */,
 				A26700FA24B45D3600454AA0 /* AVCamPreviewView.swift */,
 				A2B3599524AF152D0005D5C3 /* Resources */,
 				A2B3599F24AF1A3D0005D5C3 /* DlibWrapper.h */,
@@ -184,6 +187,7 @@
 				A2B3599324AF144D0005D5C3 /* RootViewController.swift in Sources */,
 				A2B3599C24AF17D80005D5C3 /* SessionHandler.swift in Sources */,
 				A2B3508224AEDB7D0005D5C3 /* AppDelegate.swift in Sources */,
+				A223DC0324B5D0D7009A17E9 /* PhotoCaptures.swift in Sources */,
 				A2B3599E24AF189F0005D5C3 /* VideoScanViewController.swift in Sources */,
 				A26700F924B45A7000454AA0 /* AVCamViewController.swift in Sources */,
 				A26700FB24B45D3600454AA0 /* AVCamPreviewView.swift in Sources */,
@@ -317,6 +321,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MOONFaces/Dlib";
 				INFOPLIST_FILE = MOONFaces/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -352,6 +357,7 @@
 				DEVELOPMENT_TEAM = 97TMNN6J92;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MOONFaces/Dlib";
 				INFOPLIST_FILE = MOONFaces/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

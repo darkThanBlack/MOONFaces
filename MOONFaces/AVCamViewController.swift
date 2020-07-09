@@ -26,9 +26,7 @@ class AVCamViewController: UIViewController {
     
     private var videoDeviceInput: AVCaptureDeviceInput!
     
-    var windowOrientation: UIInterfaceOrientation {
-        return view.window?.windowScene?.interfaceOrientation ?? .unknown
-    }
+    private let photoOutput = AVCapturePhotoOutput()
     
     //MARK: Life Cycle
     
@@ -120,7 +118,7 @@ class AVCamViewController: UIViewController {
         do {
             var defaultVideoDevice: AVCaptureDevice?
             
-            if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
+            if #available(iOS 10.2, *), let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
                 //背后双摄
                 defaultVideoDevice = dualCameraDevice
             } else if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
@@ -143,14 +141,7 @@ class AVCamViewController: UIViewController {
                 self.videoDeviceInput = videoDeviceInput
                 
                 DispatchQueue.main.async {
-                    var initialVideoOrientation: AVCaptureVideoOrientation = .portrait
-                    if self.windowOrientation != .unknown {
-                        if let videoOrientation = AVCaptureVideoOrientation(interfaceOrientation: self.windowOrientation) {
-                            initialVideoOrientation = videoOrientation
-                        }
-                    }
-                    
-                    self.preview.videoPreviewLayer.connection?.videoOrientation = initialVideoOrientation
+                    self.preview.videoPreviewLayer.connection?.videoOrientation = .portrait
                 }
             } else {
                 state = .configurationFailed
@@ -158,6 +149,26 @@ class AVCamViewController: UIViewController {
                 return
             }
         } catch {
+            state = .configurationFailed
+            session.commitConfiguration()
+            return
+        }
+        
+        if session.canAddOutput(photoOutput) {
+            session.addOutput(photoOutput)
+            
+            photoOutput.isHighResolutionCaptureEnabled = true
+//            photoOutput.isLivePhotoCaptureEnabled = photoOutput.isLivePhotoCaptureSupported
+//            photoOutput.isDepthDataDeliveryEnabled = photoOutput.isDepthDataDeliverySupported
+//            photoOutput.isPortraitEffectsMatteDeliveryEnabled = photoOutput.isPortraitEffectsMatteDeliverySupported
+//            photoOutput.enabledSemanticSegmentationMatteTypes = photoOutput.availableSemanticSegmentationMatteTypes
+//            selectedSemanticSegmentationMatteTypes = photoOutput.availableSemanticSegmentationMatteTypes
+//            photoOutput.maxPhotoQualityPrioritization = .quality
+//            livePhotoMode = photoOutput.isLivePhotoCaptureSupported ? .on : .off
+//            depthDataDeliveryMode = photoOutput.isDepthDataDeliverySupported ? .on : .off
+//            portraitEffectsMatteDeliveryMode = photoOutput.isPortraitEffectsMatteDeliverySupported ? .on : .off
+//            photoQualityPrioritizationMode = .balanced
+        } else {
             state = .configurationFailed
             session.commitConfiguration()
             return
@@ -174,12 +185,8 @@ class AVCamViewController: UIViewController {
     }
     
     private func loadViewsForAVCam(box: UIView) {
+        box.backgroundColor = .black
         box.addSubview(preview)
-        
-        loadConstraintsForAVCam(box: box)
-    }
-    
-    private func loadConstraintsForAVCam(box: UIView) {
         
     }
     
@@ -187,17 +194,22 @@ class AVCamViewController: UIViewController {
     
     //MARK: Event
     
-}
-
-extension AVCaptureVideoOrientation {
-    
-    init?(interfaceOrientation: UIInterfaceOrientation) {
-        switch interfaceOrientation {
-        case .portrait: self = .portrait
-        case .portraitUpsideDown: self = .portraitUpsideDown
-        case .landscapeLeft: self = .landscapeLeft
-        case .landscapeRight: self = .landscapeRight
-        default: return nil
+    private func takePhoto() {
+        
+        let videoPreviewLayerOrientation = preview.videoPreviewLayer.connection?.videoOrientation
+        
+        sessionQueue.async {
+            if let photoOutputConnection = self.photoOutput.connection(with: .video) {
+                photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+            }
+            var photoSettings = AVCapturePhotoSettings()
+            
+            if self.videoDeviceInput.device.isFlashAvailable {
+                photoSettings.flashMode = .auto
+            }
+            
+            
         }
     }
 }
+
